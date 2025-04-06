@@ -1,23 +1,20 @@
-import upload from '../middleware/upload.js';
+import mongoose from 'mongoose';
 
-// POST route
-router.post('/', upload.fields([
-  { name: 'images', maxCount: 5 },
-  { name: 'videos', maxCount: 2 }
-]), async (req, res) => {
-  const imagePaths = req.files['images']?.map(file => file.path) || [];
-  const videoPaths = req.files['videos']?.map(file => file.path) || [];
-
-  const newProduct = new Product({
-    ...req.body,
-    images: imagePaths,
-    videos: videoPaths
-  });
-
-  try {
-    const savedProduct = await newProduct.save();
-    res.status(201).json(savedProduct);
-  } catch (err) {
-    res.status(500).json({ message: 'Failed to save product', error: err });
-  }
+const productSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  sku: { type: String, required: true, unique: true },
+  manufacturer: String,
+  description: String,
+  costPrice: Number,
+  sellingPrice: Number,
+  color: String,
+  size: [String],
+  category: String,
+  images: [String], // multiple image paths
+  videos: [String], // multiple video paths
+  createdAt: { type: Date, default: Date.now }
 });
+
+const Product = mongoose.model('Product', productSchema);
+
+export default Product;
