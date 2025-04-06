@@ -5,7 +5,8 @@ import dotenv from 'dotenv';
 
 import productRoutes from './routes/products.js';
 import authRoutes from './routes/auth.js';
-import adminAuthRoutes from './routes/adminAuth.js'; // <-- Added this line
+import adminAuthRoutes from './routes/adminAuth.js';
+import adminDashboardRoutes from './routes/adminDashboard.js'; // NEW
 
 dotenv.config();
 
@@ -19,7 +20,8 @@ app.use(express.json());
 // Routes
 app.use('/api/products', productRoutes);
 app.use('/api/auth', authRoutes);
-app.use('/api/admin', adminAuthRoutes); // <-- Added this line
+app.use('/api/admin', adminAuthRoutes);
+app.use('/api/admin', adminDashboardRoutes); // NEW
 
 // MongoDB Connection
 mongoose.connect(process.env.MONGO_URI, {
