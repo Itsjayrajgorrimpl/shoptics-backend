@@ -4,7 +4,8 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 
 import productRoutes from './routes/products.js';
-import authRoutes from './routes/auth.js'; // NEW
+import authRoutes from './routes/auth.js';
+import adminAuthRoutes from './routes/adminAuth.js'; // <-- Added this line
 
 dotenv.config();
 
@@ -17,7 +18,8 @@ app.use(express.json());
 
 // Routes
 app.use('/api/products', productRoutes);
-app.use('/api/auth', authRoutes); // NEW
+app.use('/api/auth', authRoutes);
+app.use('/api/admin', adminAuthRoutes); // <-- Added this line
 
 // MongoDB Connection
 mongoose.connect(process.env.MONGO_URI, {
