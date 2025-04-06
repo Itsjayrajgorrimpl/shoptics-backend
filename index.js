@@ -1,6 +1,7 @@
+require('.env').config();
 const express = require('express');
 const mongoose = require('mongoose');
-require('.env').config();
+
 
 const app = express();
 const port = process.env.PORT || 5000;
